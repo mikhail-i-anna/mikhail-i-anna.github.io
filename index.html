@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу | Михаил и Анна</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #f9f6f1;
+            --primary-color: #8b9474;
+            --primary-dark: #6d7559;
+            --text-dark: #3a3a3a;
+            --text-muted: #7a7a72;
+            --accent-light: #eef0e8;
+            --white: #ffffff;
+            --paper-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            --content-width: 640px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
+
+        /* ===== Навигация ===== */
+        .desktop-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(249, 246, 241, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 148, 116, 0.12);
+            padding: 0 40px;
+            height: 60px;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        .nav-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            position: absolute;
+            left: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* ===== Контейнер ===== */
+        .site-container {
+            width: 100%;
+            background-color: var(--bg-color);
+        }
+
+        .section-inner {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        section {
+            padding: 64px 0;
+            text-align: center;
+        }
+
+        /* ===== Разделитель ===== */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 28px auto;
+            max-width: 200px;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(139, 148, 116, 0.35);
+        }
+
+        .section-divider span {
+            color: var(--primary-color);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+        }
+
+        /* ===== 1. Hero ===== */
+        .hero {
+            padding: 0;
+        }
+
+        .hero-photo {
+            position: relative;
+            height: 65vh;
+            min-height: 380px;
+            max-height: 600px;
+            background: url('1.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .hero-photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.5) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 50px;
+            color: var(--white);
+        }
+
+        .hero-label {
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .hero-names-overlay {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.4rem;
+            line-height: 1.1;
+            text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+        }
+
+        .hero-date-overlay {
+            font-size: 1rem;
+            letter-spacing: 4px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        .hero-content {
+            padding: 56px 25px 52px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-date {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+
+        .invitation-text {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: var(--text-dark);
+            font-weight: 300;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .decorative-yes {
+            position: absolute;
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            color: rgba(139, 148, 116, 0.07);
+            pointer-events: none;
+            right: 5%;
+            top: 10px;
+        }
+
+        /* ===== 2. Countdown ===== */
+        .countdown-section {
+            background-color: var(--accent-light);
+            background-image: var(--paper-texture);
+            padding: 64px 0 72px;
+        }
+
+        .countdown-section h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            margin-bottom: 6px;
+            color: var(--primary-dark);
+        }
+
+        .countdown-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+
+        .heart-icon {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .timer-item {
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: 12px;
+            min-width: 76px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        }
+
+        .timer-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .timer-label {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-separator {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            opacity: 0.35;
+            line-height: 1;
+            padding-bottom: 18px;
+        }
+
+        /* ===== 3. Календарь ===== */
+        .calendar-section {
+            background-color: var(--bg-color);
+            padding: 64px 0 72px;
+        }
+
+        .calendar-container {
+            margin: 0 auto;
+            max-width: 320px;
+            border: 1px dashed rgba(139, 148, 116, 0.3);
+            padding: 24px;
+            border-radius: 16px;
+            background: var(--white);
+        }
+
+        .calendar-month {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px 4px;
+            font-size: 0.9rem;
+        }
+
+        .day-name {
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            padding-bottom: 6px;
+        }
+
+        .day-num {
+            padding: 5px 0;
+            color: #ccc;
+        }
+
+        .day-num.current-month {
+            color: var(--text-dark);
+        }
+
+        .day-num.wedding-day {
+            position: relative;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .day-num.wedding-day::before {
+            content: '';
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b9474' stroke-width='1.5'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        /* ===== Фото-разделитель ===== */
+        .photo-break {
+            height: 360px;
+            background: url('2.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .photo-break::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.12);
+        }
+
+        /* ===== 4. Таймлайн ===== */
+        .timeline-section {
+            background-color: var(--white);
+        }
+
+        .timeline-section h2 {
+            font-size: 2rem;
+            margin-bottom: 35px;
+            color: var(--text-dark);
+        }
+
+        .timeline-wrapper {
+            position: relative;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        .timeline-line-svg {
+            position: absolute;
+            left: 0;
+            top: 14px;
+            bottom: 14px;
+            width: 30px;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 42px;
+            text-align: left;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-badge {
+            position: absolute;
+            left: -40px;
+            top: 0;
+            background: var(--white);
+            border: 1.5px solid var(--primary-color);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .timeline-badge svg {
+            width: 13px;
+            height: 13px;
+            fill: var(--primary-color);
+        }
+
+        .timeline-time {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .timeline-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.65rem;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        /* ===== 5. Локация ===== */
+        .location-section {
+            background-color: var(--primary-color);
+            background-image: var(--paper-texture);
+            color: var(--white);
+            padding: 72px 0 80px;
+        }
+
+        .location-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            color: var(--white);
+        }
+
+        .address-text {
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+            line-height: 1.6;
+            opacity: 0.92;
+            font-weight: 300;
+        }
+
+        .location-icon {
+            width: 52px;
+            height: 52px;
+            margin-bottom: 20px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-dark);
+            padding: 13px 32px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            border-radius: 50px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1.5px solid var(--primary-color);
+            padding: 13px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover, .btn-outline.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* ===== 6. Дресс-код ===== */
+        .dresscode-section {
+            background-color: var(--bg-color);
+            padding: 72px 0 80px;
+        }
+
+        .dresscode-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .dresscode-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .palette-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .color-1 { background-color: #e8e2d5; }
+        .color-2 { background-color: #dfd7c3; }
+        .color-3 { background-color: #d1c7b2; }
+        .color-4 { background-color: #ccd5ca; }
+        .color-5 { background-color: #b3c0b0; }
+        .color-6 { background-color: #9cae9a; }
+        .color-7 { background-color: #e5cfbe; }
+        .color-8 { background-color: #d0b8a4; }
+        .color-9 { background-color: #f1d6df; }
+        .color-10 { background-color: #f5efbf; }
+        .color-11 { background-color: #2f2f2f; }
+
+        /* ===== 7. RSVP ===== */
+        .rsvp-section {
+            background-color: var(--white);
+            padding: 72px 0 80px;
+        }
+
+        .rsvp-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .rsvp-deadline {
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .rsvp-deadline strong {
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--primary-color);
+            padding-bottom: 2px;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* ===== 8. Контакты ===== */
+        .contacts-section {
+            background-color: var(--accent-light);
+            background-image: var(--paper-texture);
+            padding: 64px 0 72px;
+        }
+
+        .contacts-section h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            margin-bottom: 18px;
+            color: var(--primary-dark);
+        }
+
+        .contact-row {
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .contact-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== 9. Футер ===== */
+        .footer-section {
+            background-color: var(--bg-color);
+            padding: 72px 0 80px;
+        }
+
+        .footer-section .section-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .footer-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 2px solid rgba(139, 148, 116, 0.35);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        .footer-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.6rem;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .stick-figures {
+            width: 120px;
+            height: 90px;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+        }
+
+        .bible-verse {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 20px;
+            border-top: 1px solid rgba(139, 148, 116, 0.15);
+            padding-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== Анимации при скролле ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            will-change: transform, opacity;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Десктоп ===== */
+        @media (min-width: 1024px) {
+            body {
+                padding-top: 60px;
+            }
+
+            .desktop-nav {
+                display: flex;
+            }
+
+            :root {
+                --content-width: 680px;
+            }
+
+            section {
+                padding: 96px 0;
+            }
+
+            .hero-photo {
+                height: 70vh;
+                max-height: 680px;
+                background-attachment: fixed;
+                background-position: center center;
+            }
+
+            .hero-names-overlay {
+                font-size: 5rem;
+            }
+
+            .hero-content {
+                padding: 80px 25px 72px;
+            }
+
+            .invitation-text {
+                font-size: 1.08rem;
+            }
+
+            .countdown-section h3 {
+                font-size: 2.4rem;
+            }
+
+            .timer-item {
+                min-width: 90px;
+                padding: 20px 24px;
+            }
+
+            .timer-val {
+                font-size: 2.6rem;
+            }
+
+            .photo-break {
+                height: 480px;
+                background-attachment: fixed;
+                background-position: top center;
+            }
+
+            .footer-names {
+                font-size: 3rem;
+            }
+
+
+
+
+            
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .hero-photo,
+            .photo-break {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .hero-photo,
+            .photo-break {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="desktop-nav">
+    <a href="#hero" class="nav-logo">M & A</a>
+    <ul class="nav-links">
+        <li><a href="#hero">Главная</a></li>
+        <li><a href="#countdown">Дата</a></li>
+        <li><a href="#program">Программа</a></li>
+        <li><a href="#location">Локация</a></li>
+        <li><a href="#rsvp">Анкета</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+    </ul>
+</nav>
+
+<div class="site-container">
+
+    <!-- 1. Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-photo">
+            <div class="hero-photo-overlay">
+                
+                <div class="hero-names-overlay">Mikhail & Anna</div>
+                <div class="hero-label">Наша свадьба</div>
+                <div class="hero-date-overlay">02 · 08 · 2026</div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <span class="decorative-yes">yes</span>
+            <div class="hero-date">Дорогая / Дорогой</div>
+            <div class="invitation-text">
+               
+                приглашаем Вас / тебя разделить яркие мгновения и радостные улыбки в день нашей свадьбы!
+            </div>
+            <div class="section-divider"><span>♡</span></div>
+        </div>
+    </section>
+
+    <!-- 2. Таймер -->
+    <section class="countdown-section" id="countdown">
+        <div class="section-inner">
+            <div class="heart-icon">♡</div>
+            <h3>Мы скажем «Да» через...</h3>
+            <p class="countdown-subtitle">До свадьбы осталось совсем немного</p>
+            <div class="timer-grid">
+                <div class="timer-item">
+                    <div class="timer-val" id="days">0</div>
+                    <div class="timer-label">дней</div>
+                </div>
+                <span class="timer-separator">:</span>
+                <div class="timer-item">
+                    <div class="timer-val" id="hours">00</div>
+                    <div class="timer-label">часов</div>
+                </div>
+                <span class="timer-separator">:</span>
+                <div class="timer-item">
+                    <div class="timer-val" id="minutes">00</div>
+                    <div class="timer-label">минут</div>
+                </div>
+                <span class="timer-separator">:</span>
+                <div class="timer-item">
+                    <div class="timer-val" id="seconds">00</div>
+                    <div class="timer-label">секунд</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Календарь -->
+    <section class="calendar-section">
+        <div class="section-inner">
+            <div class="calendar-container">
+                <div class="calendar-month">Наш август</div>
+                <div class="calendar-grid">
+                    <div class="day-name">вс</div>
+                    <div class="day-name">пн</div>
+                    <div class="day-name">вт</div>
+                    <div class="day-name">ср</div>
+                    <div class="day-name">чт</div>
+                    <div class="day-name">пт</div>
+                    <div class="day-name">сб</div>
+
+                    <div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num"></div>
+                    <div class="day-num current-month">1</div>
+                    <div class="day-num current-month wedding-day">2</div>
+                    <div class="day-num current-month">3</div>
+                    <div class="day-num current-month">4</div>
+                    <div class="day-num current-month">5</div>
+                    <div class="day-num current-month">6</div>
+                    <div class="day-num current-month">7</div>
+                    <div class="day-num current-month">8</div>
+                    <div class="day-num current-month">9</div>
+                    <div class="day-num current-month">10</div>
+                    <div class="day-num current-month">11</div>
+                    <div class="day-num current-month">12</div>
+                    <div class="day-num current-month">13</div>
+                    <div class="day-num current-month">14</div>
+                    <div class="day-num current-month">15</div>
+                    <div class="day-num current-month">16</div>
+                    <div class="day-num current-month">17</div>
+                    <div class="day-num current-month">18</div>
+                    <div class="day-num current-month">19</div>
+                    <div class="day-num current-month">20</div>
+                    <div class="day-num current-month">21</div>
+                    <div class="day-num current-month">22</div>
+                    <div class="day-num current-month">23</div>
+                    <div class="day-num current-month">24</div>
+                    <div class="day-num current-month">25</div>
+                    <div class="day-num current-month">26</div>
+                    <div class="day-num current-month">27</div>
+                    <div class="day-num current-month">28</div>
+                    <div class="day-num current-month">29</div>
+                    <div class="day-num current-month">30</div>
+                    <div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+
+    <!-- 4. Программа -->
+    <section class="timeline-section" id="program">
+        <div class="section-inner">
+            <h2 class="serif-font">Программа дня</h2>
+            <div class="timeline-wrapper">
+                <svg class="timeline-line-svg" viewBox="0 0 30 400" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                    <path d="M15,0 Q5,50 15,80 T15,160 T5,220 T15,280 T10,340 T15,400"
+                          stroke="#8b9474" stroke-width="1.5" opacity="0.5"
+                          stroke-linecap="round"/>
+                </svg>
+                <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-badge">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    </div>
+                    <div class="timeline-time">до 10:30</div>
+                    <div class="timeline-title">Встреча и размещение гостей</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <div class="timeline-time">11:00</div>
+                    <div class="timeline-title">Венчание</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10m0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+                    </div>
+                    <div class="timeline-time">12:00</div>
+                    <div class="timeline-title">Фотосессия с гостями</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">
+                        <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7m5-3v8h2.5v8h2.5V2c-2.76 0-5 2.24-5 4z"/></svg>
+                    </div>
+                    <div class="timeline-time">13:00</div>
+                    <div class="timeline-title">Начало банкета</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">
+                        <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99M6.5 16c-.83 0-1.5-.67-1.5-1s.67-1 1-1 1.5.67 1.5 1-.67 1-1.5 1m11 0c-.83 0-1.5-.67-1.5-1s.67-1 1-1 1.5.67 1.5 1-.67 1-1.5 1M5 11l1.5-4.5h11L19 11H5z"/></svg>
+                    </div>
+                    <div class="timeline-time">17:00</div>
+                    <div class="timeline-title">Свободное общение</div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Фото -->
+      <div class="photo-break"></div>
+
+    <!-- 5. Локация -->
+    <section class="location-section" id="location">
+        <div class="section-inner">
+            <h2 class="serif-font">Локация</h2>
+            <img src="1.png" alt="Иконка локации" class="location-icon">
+            <p class="address-text">г. Минск, ул. Аннаева 28А</p>
+            <a href="https://maps.google.com/?q=Минск,+ул.+Аннаева+28А" target="_blank" class="btn">Посмотреть на карте</a>
+        </div>
+    </section>
+
+    <!-- 6. Дресс-код -->
+    <section class="dresscode-section">
+        <div class="section-inner">
+            <h2 class="serif-font">Дресс-код</h2>
+            <p class="dresscode-text">Палитра для вдохновения: любые нежные природные тона (но будем рады любому вашему наряду)</p>
+            <div class="palette-container">
+                <div class="color-circle color-1"></div>
+                <div class="color-circle color-2"></div>
+                <div class="color-circle color-3"></div>
+                <div class="color-circle color-4"></div>
+                <div class="color-circle color-5"></div>
+                <div class="color-circle color-6"></div>
+                <div class="color-circle color-7"></div>
+                <div class="color-circle color-8"></div>
+                <div class="color-circle color-9"></div>
+                <div class="color-circle color-10"></div>
+                <div class="color-circle color-11"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Анкета -->
+    <section class="rsvp-section" id="rsvp">
+        <div class="section-inner">
+            <h2 class="serif-font">Анкета гостя</h2>
+            <p class="rsvp-deadline">Пожалуйста, подтвердите своё присутствие до <strong>30 июня</strong>.</p>
+            <div class="rsvp-buttons">
+                <button class="btn-outline" onclick="selectRsvp(this)">С удовольствием приду</button>
+                <button class="btn-outline" onclick="selectRsvp(this)">К сожалению, не получится</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Контакты -->
+    <section class="contacts-section" id="contacts">
+        <div class="section-inner">
+            <h3>Контакты</h3>
+            <div class="contact-row">
+                Группа для фото: <a href="#" class="contact-link">ссылка...</a>
+            </div>
+            <div class="contact-row">
+                Миша: <a href="tel:+375333795869" class="contact-link">+375 (33) 379 58 69</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Футер -->
+    <section class="footer-section">
+        <div class="section-inner">
+            <div class="footer-title">Ждём вас с нетерпением!</div>
+            <img src="3.jpg" alt="Фото пары" class="footer-avatar">
+            <svg class="stick-figures" viewBox="0 0 100 80">
+                <circle cx="35" cy="25" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="35" y1="30" x2="35" y2="55" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="35" y1="38" x2="22" y2="48" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="35" y1="38" x2="48" y2="20" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="35" y1="55" x2="25" y2="72" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="35" y1="55" x2="42" y2="72" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="65" cy="25" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="65" y1="30" x2="65" y2="40" stroke="currentColor" stroke-width="1.5"/>
+                <polygon points="65,40 53,60 77,60" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="65" y1="35" x2="48" y2="20" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="65" y1="35" x2="75" y2="48" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="59" y1="60" x2="59" y2="72" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="71" y1="60" x2="71" y2="72" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <div class="footer-names">Mikhail & Anna ♡</div>
+            <div class="bible-verse">
+                Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится, не бесчинствует, не ищет своего, не раздражается, не мыслит зла,<br>
+                1 Кор 13 : 4–7
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    function setupScrollAnimations() {
+        const revealTargets = document.querySelectorAll('.section-inner, .calendar-container, .timeline-item, .footer-avatar, .stick-figures');
+        revealTargets.forEach((item) => item.classList.add('reveal'));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -8% 0px'
+        });
+
+        revealTargets.forEach((item) => observer.observe(item));
+    }
+
+    function updateCountdown() {
+        const weddingDate = new Date('August 2, 2026 11:00:00').getTime();
+        const now = Date.now();
+        const difference = weddingDate - now;
+
+        if (difference < 0) {
+            document.querySelector('.timer-grid').innerHTML =
+                "<div class='serif-font' style='font-size:1.4rem; color: var(--primary-color);'>Этот счастливый день настал!</div>";
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = days;
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    }
+
+    setupScrollAnimations();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    function selectRsvp(button) {
+        document.querySelectorAll('.btn-outline').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        alert('Спасибо за ваш ответ: «' + button.innerText + '»');
+    }
+</script>
+
+</body>
+</html>
