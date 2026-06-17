@@ -1146,7 +1146,7 @@
     }
 
     async function sendRsvp(attendance) {
-        if (!RSVP_ENDPOINT || RSVP_ENDPOINT.includes('PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE')) {
+        if (!RSVP_ENDPOINT || RSVP_ENDPOINT.includes('https://script.google.com/macros/s/AKfycbwUmbjKJU4QQ4w7zXc0qY86g-GUJOfZjKTC1yTb-MPJxEM8lmBGHr4mIBgf8kjKDSji/exec')) {
             throw new Error('RSVP endpoint is not configured');
         }
 
