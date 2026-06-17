@@ -1103,45 +1103,248 @@
         revealTargets.forEach((item) => observer.observe(item));
     }
 
-    async function applyPersonalText() {
-        try {
-            const rawParam = window.location.search.slice(1);
-            if (!rawParam) return;
-
-            const key = decodeURIComponent(rawParam).trim();
-            if (!key) return;
-
-            const response = await fetch('text.json', { cache: 'no-store' });
-            if (!response.ok) return;
-
-            const data = await response.json();
-            if (!Array.isArray(data)) return;
-
-            const entry = data.find(item => item.name === key);
-            if (!entry) return;
-
-            const heroHeading = document.querySelector('.hero-h');
-            const invitationText = document.querySelector('.invitation-text');
-
-            if (heroHeading && entry.greeting) {
-                heroHeading.textContent = entry.greeting;
-            }
-            if (invitationText && entry.message) {
-                invitationText.textContent = entry.message;
-            }
-        } catch (e) {
-            // Тихо игнорируем, если что-то пошло не так — останется базовый текст
-        }
-    }
+    const TITLE_WORDS = ['тетя', 'дядя', 'бабушка', 'дедушка'];
+    const PATRONYMIC_RE = /(ович|евич|овна|евна|ична|ич)$/i;
+    const MALE_DIMINUTIVES = /(илья|паша|саша|женя|ваня|дима|миша|коля|вова|леша|петя|артем|руслан|денис|влад|габит|моисей|миша|давид|виктор|максим|даник|яша)$/i;
+    const INVITATION_TAIL = 'разделить яркие мгновенья и радостные улыбки в день нашей свадьбы!';
 
     function getSlugFromUrl() {
         const rawParam = window.location.search.slice(1);
         if (!rawParam) return '';
 
+        let raw = rawParam.replace(/\+/g, ' ');
         try {
-            return decodeURIComponent(rawParam).trim();
+            raw = decodeURIComponent(raw);
         } catch (e) {
-            return rawParam.trim();
+            // оставляем как есть
+        }
+        if (/%[0-9A-Fa-f]{2}/.test(raw)) {
+            try {
+                raw = decodeURIComponent(raw);
+            } catch (e) {
+                // ignore
+            }
+        }
+        return raw.trim();
+    }
+
+    function capitalizeWord(word) {
+        if (!word) return word;
+        const lower = word.toLowerCase();
+        if (TITLE_WORDS.includes(lower)) return lower;
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+    }
+
+    function tokenizeSlug(slug) {
+        if (/^дедушкабабушка$/i.test(slug)) return ['дедушка', 'бабушка'];
+        if (/^родители$/i.test(slug)) return ['родители'];
+
+        let s = slug;
+        TITLE_WORDS.forEach((title) => {
+            s = s.replace(new RegExp(`(${title})`, 'gi'), `|${title}|`);
+        });
+        s = s.replace(/([а-яё])(тетя|дядя|бабушка|дедушка)([А-ЯЁ])/gi, '$1|$2|$3');
+        s = s.replace(/(тетя|дядя|бабушка|дедушка)([А-ЯЁ])/gi, '$1|$2');
+        s = s.replace(/([а-яё])([А-ЯЁ])/g, '$1|$2');
+        s = s.replace(/([А-ЯЁ][а-яё]+)(?=[А-ЯЁ][а-яё])/g, '$1|');
+
+        let tokens = s.split('|').map((part) => part.trim()).filter(Boolean);
+
+        if (tokens.length <= 1) {
+            const caps = slug.match(/[А-ЯЁ][а-яё]+/g);
+            if (caps && caps.length) tokens = caps;
+        }
+
+        return tokens;
+    }
+
+    function mergeNamePatronymic(words) {
+        if (!words || words.length <= 1) return words || [];
+        const result = [];
+        let i = 0;
+
+        while (i < words.length) {
+            const word = words[i];
+            const next = words[i + 1];
+            if (next && PATRONYMIC_RE.test(next)) {
+                result.push(`${capitalizeWord(word)} ${capitalizeWord(next)}`);
+                i += 2;
+            } else {
+                result.push(capitalizeWord(word));
+                i += 1;
+            }
+        }
+
+        return result;
+    }
+
+    function groupIntoPersonUnits(tokens) {
+        const merged = mergeNamePatronymic(tokens);
+        const units = [];
+
+        for (let i = 0; i < merged.length; i++) {
+            const part = merged[i];
+            const lower = part.toLowerCase();
+
+            if (TITLE_WORDS.includes(lower)) {
+                const name = merged[i + 1] || '';
+                units.push(name ? `${lower} ${name}` : lower);
+                if (name) i += 1;
+                continue;
+            }
+
+            if (part.split(/\s+/).length >= 3) {
+                units.push(part);
+                continue;
+            }
+
+            units.push(part);
+        }
+
+        return units;
+    }
+
+    function parseNamesFromSlug(slug) {
+        if (!slug) return [];
+
+        let tokens = tokenizeSlug(slug);
+        tokens = mergeNamePatronymic(tokens);
+
+        if (tokens.length === 2 && /\s/.test(tokens[1])) {
+            return [tokens[0] + ' ' + tokens[1]];
+        }
+
+        const units = groupIntoPersonUnits(tokens);
+
+        if (units.length === 1 && /^[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+/.test(units[0])) {
+            return [units[0]];
+        }
+
+        return units;
+    }
+
+    function isLikelyFemale(name) {
+        const lower = name.toLowerCase();
+        if (/^тетя\s|^бабушка\s/.test(lower)) return true;
+        if (/^дядя\s|^дедушка\s/.test(lower)) return false;
+
+        const core = lower.split(/\s+/).pop() || lower;
+        if (MALE_DIMINUTIVES.test(core)) return false;
+        if (/[ая]$/.test(core)) return true;
+        return false;
+    }
+
+    function buildGreeting(units) {
+        if (!units.length) return null;
+
+        if (units.length === 1) {
+            const person = units[0];
+            const lower = person.toLowerCase();
+
+            if (lower === 'родители') return 'Дорогие родители!';
+            if (lower === 'дедушка') return 'Дорогой дедушка!';
+            if (lower === 'бабушка') return 'Дорогая бабушка!';
+
+            if (/^тетя\s/.test(lower)) return `Дорогая ${person}!`;
+            if (/^дядя\s/.test(lower)) return `Дорогой ${person}!`;
+            if (/^бабушка\s/.test(lower)) return `Дорогая ${person}!`;
+            if (/^дедушка\s/.test(lower)) return `Дорогой ${person}!`;
+
+            return isLikelyFemale(person)
+                ? `Дорогая ${person}!`
+                : `Дорогой ${person}!`;
+        }
+
+        if (units.length === 2) {
+            return `Дорогие ${units[0]} и ${units[1]}!`;
+        }
+
+        const first = units[0];
+        const second = units[1];
+        const rest = units.slice(2);
+        let restStr = '';
+
+        if (rest.length === 1) {
+            restStr = rest[0];
+        } else if (rest.length === 2) {
+            restStr = `${rest[0]} и ${rest[1]}`;
+        } else {
+            restStr = `${rest.slice(0, -1).join(', ')} и ${rest[rest.length - 1]}`;
+        }
+
+        return `Дорогие ${first} и ${second}, а также ${restStr}!`;
+    }
+
+    function buildInvitationMessage(units, slug) {
+        const lowerSlug = (slug || '').toLowerCase();
+
+        if (lowerSlug.includes('родител') || (lowerSlug.includes('дедушка') && lowerSlug.includes('бабушка'))) {
+            return `Приглашаем вашу семью ${INVITATION_TAIL}`;
+        }
+
+        const hasPatronymic = units.some((unit) => {
+            const words = unit.split(/\s+/);
+            return words.some((w) => PATRONYMIC_RE.test(w));
+        });
+
+        const hasFullName = units.some((unit) => unit.split(/\s+/).length >= 3);
+
+        if (hasPatronymic || hasFullName) {
+            return `Приглашаем Вас ${INVITATION_TAIL}`;
+        }
+
+        if (units.length === 1) {
+            const person = units[0].toLowerCase();
+            if (person.includes('семь') || lowerSlug.includes('семь')) {
+                return `Приглашаем тебя и твою семью ${INVITATION_TAIL}`;
+            }
+            return `Приглашаем тебя ${INVITATION_TAIL}`;
+        }
+
+        if (units.length >= 2 && (lowerSlug.includes('семь') || units.some((u) => /семь/i.test(u)))) {
+            return `Приглашаем вашу семью ${INVITATION_TAIL}`;
+        }
+
+        return `Приглашаем вас ${INVITATION_TAIL}`;
+    }
+
+    async function applyPersonalText() {
+        try {
+            const key = getSlugFromUrl();
+            if (!key) return;
+
+            const heroHeading = document.querySelector('.hero-h');
+            const invitationText = document.querySelector('.invitation-text');
+
+            let entry = null;
+            try {
+                const response = await fetch('text.json', { cache: 'no-store' });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (Array.isArray(data)) {
+                        entry = data.find((item) => item.name === key);
+                    }
+                }
+            } catch (e) {
+                // продолжаем с автогенерацией
+            }
+
+            if (entry) {
+                if (heroHeading && entry.greeting) heroHeading.textContent = entry.greeting;
+                if (invitationText && entry.message) invitationText.textContent = entry.message;
+                return;
+            }
+
+            const units = parseNamesFromSlug(key);
+            if (!units.length) return;
+
+            const greeting = buildGreeting(units);
+            const message = buildInvitationMessage(units, key);
+
+            if (heroHeading && greeting) heroHeading.textContent = greeting;
+            if (invitationText && message) invitationText.textContent = message;
+        } catch (e) {
+            // остаётся базовый текст
         }
     }
 
