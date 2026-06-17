@@ -584,6 +584,47 @@
             margin: 0 auto;
         }
 
+        .rsvp-comment-wrap {
+            max-width: 400px;
+            margin: 0 auto 24px;
+            text-align: left;
+        }
+
+        .rsvp-comment-label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .rsvp-comment {
+            width: 100%;
+            min-height: 96px;
+            padding: 14px 16px;
+            border: 1px solid rgba(139, 148, 116, 0.35);
+            border-radius: 12px;
+            background: var(--bg-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.55;
+            resize: vertical;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .rsvp-comment::placeholder {
+            color: rgba(122, 122, 114, 0.65);
+        }
+
+        .rsvp-comment:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 148, 116, 0.12);
+        }
+
         /* ===== 8. Контакты ===== */
         .contacts-section {
             background-color: var(--accent-light);
@@ -804,10 +845,10 @@
         </div>
         <div class="hero-content">
             <span class="decorative-yes">yes</span>
-            <div class="hero-h">Дорогая / Дорогой</div>
+            <div class="hero-h">Дорогие гости!</div>
             <div class="invitation-text">
                
-                приглашаем Вас / тебя разделить яркие мгновения и радостные улыбки в день нашей свадьбы!
+                приглашаем вас разделить яркие мгновения и радостные улыбки в день нашей свадьбы!
             </div>
             <div class="section-divider"><span>♡</span></div>
         </div>
@@ -986,6 +1027,10 @@
         <div class="section-inner">
             <h2 class="serif-font">Анкета гостя</h2>
             <p class="rsvp-deadline">Пожалуйста, подтвердите своё присутствие до <strong>5 июля</strong>.</p>
+            <div class="rsvp-comment-wrap">
+                <label class="rsvp-comment-label" for="rsvpComment">Комментарий (необязательно)</label>
+                <textarea id="rsvpComment" class="rsvp-comment" rows="3" maxlength="500" placeholder="Пожелания, аллергии, уточнения по количеству гостей…"></textarea>
+            </div>
             <div class="rsvp-buttons">
                 <button class="btn-outline" onclick="selectRsvp(this)">С удовольствием приду</button>
                 <button class="btn-outline" onclick="selectRsvp(this)">К сожалению, не получится</button>
@@ -1106,9 +1151,11 @@
         }
 
         const heroHeading = document.querySelector('.hero-h');
+        const commentField = document.getElementById('rsvpComment');
         const payload = {
             hero_h: heroHeading ? heroHeading.textContent.trim() : '',
             attendance,
+            comment: commentField ? commentField.value.trim() : '',
             slug: getSlugFromUrl(),
             page_url: window.location.href
         };
