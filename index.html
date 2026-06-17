@@ -1125,8 +1125,25 @@
             body
         });
 
+        const raw = await response.text();
+        let parsed = null;
+        try {
+            parsed = raw ? JSON.parse(raw) : null;
+        } catch (_) {
+            // ignore
+        }
+
         if (!response.ok) {
-            throw new Error('HTTP ' + response.status);
+            throw new Error('HTTP ' + response.status + (raw ? (': ' + raw) : ''));
+        }
+
+        if (parsed && parsed.ok === false) {
+            throw new Error(parsed.error || 'Server returned ok=false');
+        }
+
+        if (parsed && parsed.ok !== true) {
+            // если сервер отвечает не тем форматом — покажем это, чтобы диагностировать
+            throw new Error('Unexpected server response: ' + raw);
         }
     }
 
