@@ -1113,16 +1113,12 @@
             page_url: window.location.href
         };
 
-        const body = new URLSearchParams({
-            hero_h: payload.hero_h,
-            attendance: payload.attendance,
-            slug: payload.slug,
-            page_url: payload.page_url
-        });
-
         const response = await fetch(RSVP_ENDPOINT, {
             method: 'POST',
-            body
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
         });
 
         const raw = await response.text();
